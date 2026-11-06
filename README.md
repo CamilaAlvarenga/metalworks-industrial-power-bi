@@ -127,5 +127,3 @@ metalworks-industrial-power-bi/
 ## Autoria
 
 **Camila Alvarenga Enseñat**
-
-[LinkedIn](https://www.linkedin.com/in/camila-ensenat/)
