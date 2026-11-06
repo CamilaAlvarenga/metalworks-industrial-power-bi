@@ -1,57 +1,92 @@
 # MetalWorks Industrial | Business Intelligence
 
-Dashboard interativo desenvolvido em Power BI para análise de desempenho comercial e operacional de uma indústria fictícia.
+Dashboard interativo desenvolvido no Power BI para análise de desempenho comercial e operacional de uma indústria fictícia.
+
+> **Aviso:** A MetalWorks Industrial é uma empresa fictícia. Todos os dados utilizados neste projeto são 100% sintéticos, gerados exclusivamente para fins educacionais e de portfólio.
 
 ## Sobre o projeto
 
-Este projeto apresenta uma solução de Business Intelligence voltada à análise integrada de indicadores comerciais e operacionais, permitindo explorar resultados de vendas, desempenho produtivo e indicadores de qualidade.
+O projeto apresenta uma solução de Business Intelligence voltada à análise integrada de indicadores comerciais e operacionais.
 
-A proposta é transformar dados estruturados em informações visuais que facilitem a interpretação de resultados e apoiem a tomada de decisões.
+O dashboard permite acompanhar resultados de vendas, receita, lucratividade, desempenho de produtos e clientes, além de indicadores relacionados à produção e à qualidade.
 
-**Aviso:** a MetalWorks Industrial é uma empresa fictícia e todos os dados utilizados foram gerados artificialmente para fins educacionais e de portfólio.
+O objetivo é transformar dados estruturados em informações visuais que facilitem a identificação de padrões e o acompanhamento do desempenho da empresa.
+
+**Período analisado:** Janeiro de 2025 a dezembro de 2026.
 
 ## Dashboard
 
-O relatório está dividido em três páginas:
+O relatório foi organizado em três páginas, cada uma com um foco de análise.
 
 ### 1. Visão Executiva
 
-![Visão Executiva](Prints/visao-executiva.png)
+Apresenta os principais indicadores de desempenho comercial e operacional, oferecendo uma visão geral dos resultados da empresa.
 
-Visão geral dos principais indicadores de desempenho comercial e operacional.
+![Visão Executiva](Prints/visao-executiva.png)
 
 ### 2. Análise Comercial
 
-![Análise Comercial](Prints/analise-comercial.png)
+Explora o desempenho das vendas, incluindo receita líquida, lucro bruto, margem, produtos, clientes e segmentos comerciais.
 
-Exploração dos resultados de vendas, receita, lucratividade, clientes e produtos.
+![Análise Comercial](Prints/analise-comercial.png)
 
 ### 3. Análise Operacional
 
+Apresenta indicadores de produção, qualidade, cumprimento do planejamento e horas planejadas e reais.
+
 ![Análise Operacional](Prints/analise-operacional.png)
 
-Análise de produção, cumprimento do planejamento, horas trabalhadas e indicadores de qualidade.
+## Principais resultados
 
-## Principais indicadores
+| Indicador | Resultado |
+|---|---:|
+| Receita líquida | R$ 18,05 milhões |
+| Lucro bruto | R$ 6,72 milhões |
+| Margem bruta | 37,19% |
+| Quantidade de pedidos | 1.401 |
+| Unidades vendidas | 11.006 |
+| Taxa de rejeição | 3,19% |
+| Cumprimento do planejamento | 102,18% |
 
-**Comercial**
-- Receita líquida
-- Custo das vendas
-- Lucro e margem bruta
-- Quantidade vendida e número de pedidos
-- Desempenho por cliente, produto e segmento
+Entre os resultados observados, os segmentos comerciais apresentam participação relativamente equilibrada na receita, com percentuais entre 23,6% e 26,1%. O produto **Bancada de trabalho 2 m** se destaca como o de maior receita no cenário analisado, com aproximadamente R$ 2,50 milhões.
 
-**Operacional**
-- Quantidade produzida e aprovada
-- Taxa de rejeição
-- Cumprimento do planejamento de produção
-- Horas planejadas e realizadas
-- Custo de materiais
+## Modelo de dados
+
+O projeto utiliza um modelo dimensional composto por duas tabelas fato e três tabelas dimensão, permitindo análises comerciais e operacionais integradas por meio das dimensões compartilhadas.
+
+### Diagrama de relacionamentos
+
+![Modelo de dados](Prints/modelo-dados.png)
+
+*Modelo dimensional desenvolvido no Power BI Desktop.*
+
+### Estrutura das tabelas
+
+**Tabelas dimensão:**
+- `tbl_DimProdutos`: 12 produtos.
+- `tbl_DimClientes`: 40 clientes fictícios.
+- `tbl_DimCalendario`: 730 registros de datas, abrangendo 2025 e 2026.
+
+**Tabelas fato:**
+- `tbl_FatoVendas`: 2.800 registros de vendas.
+- `tbl_FatoProducao`: 288 registros de produção, organizados por produto e mês.
+
+### Relacionamentos
+
+- `tbl_DimCalendario[Data]` → `tbl_FatoVendas[DataVenda]`
+- `tbl_DimCalendario[Data]` → `tbl_FatoProducao[MesReferencia]`
+- `tbl_DimProdutos[ProdutoID]` → `tbl_FatoVendas[ProdutoID]`
+- `tbl_DimProdutos[ProdutoID]` → `tbl_FatoProducao[ProdutoID]`
+- `tbl_DimClientes[ClienteID]` → `tbl_FatoVendas[ClienteID]`
+
+O modelo utiliza relacionamentos ativos de um para muitos (`1:*`), com direção de filtragem única.
+
+**Observação sobre o calendário:** o relacionamento entre `tbl_DimCalendario[Data]` e `tbl_FatoProducao[MesReferencia]` utiliza o primeiro dia de cada mês como referência para os registros mensais de produção.
 
 ## Tecnologias e ferramentas
 
 - **Power BI Desktop:** desenvolvimento do dashboard e visualização dos dados.
-- **DAX:** criação de medidas e indicadores.
+- **DAX:** criação de medidas e indicadores calculados.
 - **Microsoft Excel:** organização e estruturação da base de dados.
 - **GitHub:** versionamento e documentação do projeto.
 
@@ -59,27 +94,38 @@ Análise de produção, cumprimento do planejamento, horas trabalhadas e indicad
 
 ```text
 metalworks-industrial-power-bi/
+│
 ├── Dashboard/
 │   └── MetalWorks_Industrial.pbix
+│
 ├── Dados/
-│   └── MetalWorks_Base_Dados.xlsx
+│   └── MetalWorks_Base_PowerBI.xlsx
+│
 ├── Prints/
-│   ├── visao-executiva.png
 │   ├── analise-comercial.png
-│   └── analise-operacional.png
+│   ├── analise-operacional.png
+│   ├── modelo-dados.png
+│   └── visao-executiva.png
+│
 └── README.md
 ```
 
-## Base de dados
+## Como abrir o projeto
 
-A base foi desenvolvida especificamente para este projeto, com dados fictícios referentes ao período de janeiro de 2025 a dezembro de 2026.
-
-O arquivo Excel contém tabelas dimensionais e fatos organizadas para utilização no Power BI, incluindo informações de produtos, clientes, vendas, produção e calendário.
+1. Baixe o arquivo `MetalWorks_Industrial.pbix`, disponível na pasta `Dashboard`.
+2. Baixe a base `MetalWorks_Base_PowerBI.xlsx`, disponível na pasta `Dados`.
+3. Abra o arquivo PBIX no Power BI Desktop.
+4. Caso necessário, atualize o caminho da fonte de dados em **Arquivo → Opções e configurações → Configurações da fonte de dados**, selecionando o arquivo Excel baixado.
+5. Atualize os dados do relatório.
 
 ## Observações e limitações
 
-Os indicadores apresentados representam um cenário simulado. A base não contém informações de estoque, portanto não permite estabelecer uma relação direta entre quantidades produzidas e vendidas ou atribuir diferenças a movimentações de estoque.
+- Os valores de custos e resultados foram gerados para simular um cenário empresarial.
+- A base não possui uma tabela de estoque. Portanto, não é possível estabelecer uma relação direta entre a quantidade produzida e a quantidade vendida, nem atribuir as diferenças entre elas à movimentação de estoque.
+- Os dados de produção estão agregados por produto e mês, enquanto os registros de vendas estão organizados por item de pedido.
 
----
+## Autoria
 
-**Projeto autoral desenvolvido para fins educacionais e de portfólio.**
+**Camila Alvarenga Enseñat**
+
+[LinkedIn](https://www.linkedin.com/in/camila-ensenat/)
