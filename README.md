@@ -113,10 +113,8 @@ metalworks-industrial-power-bi/
 ## Como abrir o projeto
 
 1. Baixe o arquivo `MetalWorks_Industrial.pbix`, disponível na pasta `Dashboard`.
-2. Baixe a base `MetalWorks_Base_PowerBI.xlsx`, disponível na pasta `Dados`.
-3. Abra o arquivo PBIX no Power BI Desktop.
-4. Caso necessário, atualize o caminho da fonte de dados em **Arquivo → Opções e configurações → Configurações da fonte de dados**, selecionando o arquivo Excel baixado.
-5. Atualize os dados do relatório.
+2. Abra o arquivo no Power BI Desktop para visualizar e explorar o dashboard.
+3. A base de dados original, `MetalWorks_Base_PowerBI.xlsx`, está disponível na pasta `Dados` para consulta e reprodução do projeto.
 
 ## Observações e limitações
 
